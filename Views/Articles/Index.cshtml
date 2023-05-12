@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Blog.Models.Article>
+
+@{
+    ViewData["Title"] = "Index";
+    var auteur_role = Context.Request.Cookies["auteur_role"];
+}
+
+
+
+@if (auteur_role == "Connecte")
+{
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+}
+<div  class="container px-5 w-75">
+    
+    <div class="row">
+@foreach (var item in Model) {
+        <div class="row mt-2">
+            <h2>
+                @Html.DisplayFor(modelItem => item.Title)
+            </h2>
+            <p>
+                @Html.DisplayFor(modelItem => item.Description)
+            </p>
+            <p>
+                @Html.DisplayFor(modelItem => item.Author)
+            </p>
+           <!--<td>
+                @Html.DisplayFor(modelItem => item.Content)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.Id)
+            </td>-->
+            <div class="container ">
+                <!--<a  class="d-inline-block"asp-action="Edit" asp-route-id="@item.Id">Edit</a> -->
+                  @if(auteur_role=="Connecte"){
+                  <a class="d-inline-block btn btn-primary" asp-action="Details" asp-route-id="@item.Id">Voir Plus</a> }
+                    <!--<a class="d-inline-block" asp-action="Delete" asp-route-id="@item.Id">Delete</a>-->
+            </div>
+        </div>
+}
+    </div>
+</div>

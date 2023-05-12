@@ -1,0 +1,83 @@
+﻿@model Blog.Models.Article
+
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+
+<div>
+    <h4>Article</h4>
+    <hr />
+    <div class="row">
+        <p class = " fw-bold">
+            @Html.DisplayFor(model => model.Title)
+        </p>
+        
+        
+        <p class = "">
+            @Html.DisplayFor(model => model.Description)
+        </p>
+       
+      
+       
+        <p class = "">
+            @Html.DisplayFor(model => model.Content)
+        </p>
+        <p class="">
+            @Html.DisplayFor(model => model.Author)
+        </p>
+       <p class = "">
+            @Html.DisplayFor(model => model.Category.Id)
+        </p>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Modifier</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+<!--  formulaire commentaire -->
+<div>
+    <h4>Commentaires</h4>
+    @if (Model.Comments != null && Model.Comments.Count > 0)
+    {
+        foreach (var comment in Model.Comments)
+        {
+            <div class="card mb-3">
+                <div class="card-body">
+                    
+                    <p class="card-text">@comment.Content</p>
+                    <p class="card-text"><small class="text-muted">@comment.Created</small></p>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p>Pas de commentaire</p>
+    }
+</div>
+
+<div>
+    <h4>Ajouter Un commentaire </h4>
+    <form asp-action="Create_id" asp-controller="Comments" method="post">
+        <input type="hidden" name="Id" value="@Model.Id" />
+       
+        <div class="form-group">
+            <label asp-for="Content" class="control-label"></label>
+            <textarea asp-for="Content" class="form-control"></textarea>
+            <span asp-validation-for="Content" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary mt-2">Ajouter Commentaire</button>
+    </form>
+</div>
+
+
+<!-------------->
+
+
+<!---->
